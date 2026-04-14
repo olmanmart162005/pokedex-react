@@ -1,0 +1,44 @@
+name: VITE MPA Despliegue de Portal a Github Pages
+
+on:
+  push:
+    branches:
+      - main
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+env:
+  DEPLOY_BASE_URL: ${{ vars.DEPLOY_BASE_URL}}
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    environment:
+      name: github-pages
+      url: ${{ steps.github-pages.output.url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar el Repositorio
+        uses: actions/checkout@v4
+      - name: Instalar Nodejs
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Instalar las Dependencias del Proyecto
+        run: npm install --legacy-peer-deps
+      - name: Compilar la página para distribución
+        run: npm run build
+      - name: Asegurar el 404 fallback
+        run: cp ./dist/index.html ./dist/404.html
+      - name: Configura Github Pages
+        uses: actions/configure-pages@v5
+      - name: Subir los compilados (artefactos) a GP
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: './dist'
+      - name: Publicar Github Pages
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+:root {
+
+}
+html {
+  @apply h-full;
+}
+body {
+  @apply flex flex-col min-h-screen h-full;
+}
+#root {
+  @apply flex flex-col min-h-screen h-full;
+}
+header {
+  @apply flex justify-between items-center px-6 py-4;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+main {
+  @apply flex-1 min-h-0 overflow-y-auto;
+}
+
+footer {
+  @apply bg-black text-white text-center py-3;
+}
+
+body {
+  background: radial-gradient(circle at top, #0f172a, #020617);
+  color: #e2e8f0;
+  font-family: 'Segoe UI', sans-serif;
+}
