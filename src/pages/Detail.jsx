@@ -23,18 +23,28 @@ export const Detail = () => {
   }
 
   return (
-    <section>
-      <h1>Detail Page</h1>
-      <p>Pokemon ID: {id}</p>
+   <section className="text-white text-center p-10">
+  <h1 className="text-3xl font-bold mb-4">
+    {pokemonData.name.toUpperCase()}
+  </h1>
 
-      <div>
-        PokemonDetail
-      </div>
+  <img
+    src={pokemonData.sprites.front_default}
+    alt={pokemonData.name}
+    className="mx-auto w-40"
+  />
 
-      <pre>
-        {JSON.stringify(pokemonData, null, 2)}
-      </pre>
-    </section>
+  <p className="mt-4">ID: {id}</p>
+
+  <div className="mt-4">
+    <h2 className="font-bold">Tipos:</h2>
+    {pokemonData.types.map((t, i) => (
+      <span key={i} className="mx-2 bg-green-500 px-3 py-1 rounded">
+        {t.type.name}
+      </span>
+    ))}
+  </div>
+</section>
   );
 };
 
